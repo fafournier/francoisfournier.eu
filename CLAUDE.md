@@ -74,12 +74,15 @@ Les corriger là-bas d'abord, puis les recopier.
 
 ## État connu
 
-**La traduction n'est pas terminée.** Le corps des pages est traduit, mais il
-reste des fragments de français. Connu à ce jour :
+**Des phrases françaises subsistent dans les pages anglaises. C'est un défaut à
+corriger, pas un choix.** Le corps des pages est traduit, mais la relecture n'a
+jamais été faite.
+
+Connu à ce jour :
 
 - le `<title>` de `/career/` lit encore « Parcours — François Fournier » ;
-- à passer en revue page par page, le reste n'a pas été audité.
+- le reste n'a pas été audité page par page.
 
-Travail explicitement remis à plus tard par François : ne pas le traiter au
-détour d'une autre tâche, mais quand il le demande.
-
+Une relecture complète est due. En attendant, toute phrase française rencontrée
+dans `public/` est un bug : la signaler, et la corriger si le contexte de la
+tâche s'y prête.
