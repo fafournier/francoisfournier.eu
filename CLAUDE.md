@@ -74,15 +74,20 @@ Les corriger là-bas d'abord, puis les recopier.
 
 ## État connu
 
-**Des phrases françaises subsistent dans les pages anglaises. C'est un défaut à
-corriger, pas un choix.** Le corps des pages est traduit, mais la relecture n'a
-jamais été faite.
+La relecture de l'anglais a été faite. Trois éléments restent **volontairement**
+en français, et ne sont pas des oublis :
 
-Connu à ce jour :
+- `Mentions légales (FR)` en pied de page — c'est le libellé d'un lien vers le
+  site français, il doit rester dans la langue de sa destination ;
+- les titres de conférences réellement données en français (`Les outils du
+  Manager`, `Votre monde`) — traduire le titre d'une intervention la
+  travestirait ; seul son cadre est en anglais ;
+- `Lycée de Presles`, glosé `(secondary school)`.
 
-- le `<title>` de `/career/` lit encore « Parcours — François Fournier » ;
-- le reste n'a pas été audité page par page.
+Deux points ouverts, non traités car ils ne relèvent pas de la traduction :
 
-Une relecture complète est due. En attendant, toute phrase française rencontrée
-dans `public/` est un bug : la signaler, et la corriger si le contexte de la
-tâche s'y prête.
+- les pages annoncent « Twenty years » alors que le blog anglais a été passé à
+  25 ans. La page française dit « vingt ans » : corriger une seule des deux
+  créerait une divergence. À trancher pour les deux à la fois.
+- `bonjour@francoisfournier.eu` est l'adresse affichée sur la page anglaise.
+  Vérifier qu'elle existe.

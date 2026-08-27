@@ -6,10 +6,9 @@ Personal site — English. French version:
 Counterpart to the three blogs. They build the authority; this is what they
 point at.
 
-⚠️ **La traduction n'est pas terminée — et c'est un défaut, pas un choix.** Le
-corps des pages est traduit, mais la relecture n'a jamais été faite et des
-phrases françaises subsistent. Le `<title>` de `/career/` lit encore « Parcours —
-François Fournier ». Une relecture complète est due.
+La relecture de l'anglais a été faite. Restent volontairement en français : le
+libellé `Mentions légales (FR)`, qui pointe vers le site français, et les titres
+de conférences données en français.
 
 ## Structure
 
