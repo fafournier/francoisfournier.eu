@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>François Fournier | Fractional CTO</title>
+  <link rel="canonical" href="https://francoisfournier.eu/">
+  <link rel="alternate" hreflang="en" href="https://francoisfournier.eu/">
+  <link rel="alternate" hreflang="fr" href="https://francoisfournier.fr/">
+  <link rel="alternate" hreflang="x-default" href="https://francoisfournier.fr/">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --noir: #0e0e10;
+      --violet-profond: #0a0a0c;
+      --violet: #111214;
+      --violet-accent: #fab400;
+      --violet-clair: #fcd34d;
+      --blanc: #f8f6ff;
+      --gris-clair: #e8e4f0;
+      --gris-texte: #9b93b0;
+      --or: #fab400;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--noir);
+      color: var(--blanc);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(14,14,16,0.95), transparent);
+      backdrop-filter: blur(4px);
+    }
+
+    .nav-logo {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blanc);
+      text-decoration: none;
+      opacity: 0.85;
+    }
+
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--violet-clair);
+      text-decoration: none;
+      border: 1px solid rgba(250,180,0,0.3);
+      padding: 0.5rem 1.25rem;
+      border-radius: 2px;
+      transition: all 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(250,180,0,0.2);
+      border-color: var(--violet-clair);
+      color: #fff;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 3rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 40%, rgba(250,180,0,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(46,26,71,0.6) 0%, transparent 60%);
+    }
+
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(250,180,0,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(250,180,0,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--violet-clair);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--violet-clair);
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1.05;
+      color: var(--blanc);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--violet-clair);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 400;
+      color: var(--gris-texte);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+
+    .hero-subtitle strong {
+      color: var(--blanc);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.25rem;
+      background: var(--violet-accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.25s ease;
+      border: 1px solid var(--violet-accent);
+    }
+
+    .btn-primary:hover {
+      background: #e6a800;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(250,180,0,0.4);
+    }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 0.9rem 2.25rem;
+      color: var(--gris-texte);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      border: 1px solid rgba(155,147,176,0.2);
+      transition: all 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      color: var(--blanc);
+      border-color: rgba(155,147,176,0.5);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 3rem;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gris-texte);
+      opacity: 0.5;
+    }
+
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gris-texte);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--violet-clair);
+      animation: scrollAnim 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollAnim {
+      0% { left: -100%; }
+      50% { left: 0; }
+      100% { left: 100%; }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 7rem 3rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--violet-clair);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--blanc);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--violet-clair);
+    }
+
+    /* ── INTRO / DIAGNOSTIC ── */
+    .section-intro {
+      background: var(--noir);
+      border-top: 1px solid rgba(250,180,0,0.15);
+    }
+
+    .intro-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .intro-text p {
+      color: var(--gris-texte);
+      font-size: 1rem;
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .intro-text p strong {
+      color: var(--blanc);
+      font-weight: 600;
+    }
+
+    .intro-quote {
+      border-left: 3px solid var(--violet-accent);
+      padding: 1.5rem 2rem;
+      background: rgba(250,180,0,0.06);
+      border-radius: 0 4px 4px 0;
+      margin-top: 2rem;
+    }
+
+    .intro-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--blanc) !important;
+      line-height: 1.6;
+      margin: 0 !important;
+    }
+
+    /* ── POUR QUI ── */
+    .section-pourqui {
+      background: #0d0d10;
+      border-top: 1px solid rgba(250,180,0,0.1);
+      border-bottom: 1px solid rgba(250,180,0,0.1);
+    }
+
+    .pourqui-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .pourqui-card {
+      padding: 2rem;
+      border: 1px solid rgba(250,180,0,0.15);
+      border-radius: 4px;
+      background: rgba(14,14,16,0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pourqui-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet-accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .pourqui-card:hover::before { opacity: 1; }
+    .pourqui-card:hover { border-color: rgba(250,180,0,0.35); transform: translateY(-3px); }
+
+    .pourqui-number {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      color: var(--violet-accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .pourqui-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blanc);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .pourqui-card p {
+      font-size: 0.875rem;
+      color: var(--gris-texte);
+      line-height: 1.7;
+    }
+
+    /* ── COMMENT J'INTERVIENS ── */
+    .section-how {
+      background: var(--noir);
+    }
+
+    .how-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .how-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(250,180,0,0.1);
+    }
+
+    .how-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .how-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 3px;
+      background: rgba(250,180,0,0.12);
+      border: 1px solid rgba(250,180,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .how-item h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--blanc);
+      margin-bottom: 0.5rem;
+    }
+
+    .how-item p {
+      font-size: 0.85rem;
+      color: var(--gris-texte);
+      line-height: 1.7;
+    }
+
+    /* ── PARCOURS ── */
+    .section-parcours {
+      background: linear-gradient(135deg, #111116 0%, #0e0e10 100%);
+      border-top: 1px solid rgba(250,180,0,0.1);
+    }
+
+    .parcours-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .parcours-portrait {
+      position: sticky;
+      top: 8rem;
+    }
+
+    .portrait-frame {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #1a1a1e;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(250,180,0,0.2);
+    }
+
+    .portrait-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--violet-clair);
+      opacity: 0.4;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .portrait-placeholder svg {
+      width: 60px;
+      height: 60px;
+      opacity: 0.5;
+    }
+
+    .parcours-creds {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .cred-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid rgba(250,180,0,0.25);
+      border-radius: 2px;
+      color: var(--violet-clair);
+    }
+
+    .parcours-content p {
+      font-size: 0.95rem;
+      color: var(--gris-texte);
+      line-height: 1.85;
+      margin-bottom: 1.25rem;
+    }
+
+    .parcours-content p strong {
+      color: var(--blanc);
+      font-weight: 600;
+    }
+
+    /* ── PROJETS ── */
+    .section-projets {
+      background: var(--noir);
+      border-top: 1px solid rgba(250,180,0,0.1);
+    }
+
+    .projets-intro {
+      max-width: 600px;
+      margin-bottom: 3.5rem;
+    }
+
+    .projets-intro p {
+      font-size: 0.95rem;
+      color: var(--gris-texte);
+      line-height: 1.8;
+    }
+
+    .projets-intro p strong {
+      color: var(--blanc);
+    }
+
+    .projets-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .projet-item {
+      padding: 1.5rem;
+      border: 1px solid rgba(250,180,0,0.1);
+      border-radius: 4px;
+      text-decoration: none;
+      display: block;
+      transition: all 0.25s ease;
+      background: rgba(26,18,40,0.4);
+    }
+
+    .projet-item:hover {
+      border-color: rgba(250,180,0,0.3);
+      background: rgba(26,18,40,0.8);
+      transform: translateY(-2px);
+    }
+
+    .projet-item h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blanc);
+      margin-bottom: 0.5rem;
+    }
+
+    .projet-item p {
+      font-size: 0.78rem;
+      color: var(--gris-texte);
+      line-height: 1.6;
+    }
+
+    .projet-tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--violet-accent);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── CTA FINAL ── */
+    .section-cta {
+      background: #0d0d10;
+      border-top: 1px solid rgba(250,180,0,0.2);
+      text-align: center;
+    }
+
+    .cta-content {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-content .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .cta-content p {
+      font-size: 0.95rem;
+      color: var(--gris-texte);
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+
+    .cta-email {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--violet-clair);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      margin-top: 1.5rem;
+      transition: color 0.2s;
+    }
+
+    .cta-email:hover { color: var(--blanc); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--noir);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5rem 3rem;
+    }
+
+    .footer-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.75rem;
+      color: var(--gris-texte);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--blanc); }
+
+    footer p {
+      font-size: 0.72rem;
+      color: rgba(155,147,176,0.4);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+    /* ── LOGOS / RÉFÉRENCES ── */
+    .section-logos {
+      background: var(--noir);
+      border-top: 1px solid rgba(250,180,0,0.1);
+      border-bottom: 1px solid rgba(250,180,0,0.1);
+      padding: 4rem 3rem;
+    }
+    .logos-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gris-texte);
+      text-align: center; margin-bottom: 2.5rem; opacity: 0.6;
+    }
+    .logos-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      align-items: center; gap: 0; max-width: 1080px; margin: 0 auto;
+    }
+    .logo-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 1.5rem 2.5rem; gap: 0.5rem;
+      border-right: 1px solid rgba(250,180,0,0.08);
+      transition: all 0.25s ease; min-width: 140px;
+    }
+    .logo-item:last-child { border-right: none; }
+    .logo-item:hover { background: rgba(250,180,0,0.04); }
+    .logo-item img {
+      height: 32px; width: auto; max-width: 110px;
+      object-fit: contain; filter: grayscale(1) brightness(0.6);
+      transition: filter 0.25s ease;
+    }
+    .logo-item:hover img { filter: grayscale(0.3) brightness(0.9); }
+    .logo-placeholder {
+      height: 32px; display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em;
+      color: rgba(155,147,176,0.45); text-transform: uppercase;
+      transition: color 0.25s ease;
+    }
+    .logo-item:hover .logo-placeholder { color: rgba(250,180,0,0.7); }
+    .logo-sublabel {
+      font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(155,147,176,0.3);
+    }
+    .logos-divider {
+      width: 100%; height: 1px; background: rgba(250,180,0,0.08);
+      margin: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .logos-group-label {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: rgba(155,147,176,0.25);
+      text-align: center; padding: 1rem 0 0.5rem; width: 100%;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+
+      .intro-layout,
+      .how-layout,
+      .parcours-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .pourqui-grid { grid-template-columns: 1fr; }
+      .projets-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .parcours-portrait { position: static; }
+      .portrait-frame { aspect-ratio: 4/3; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 500px) {
+      .projets-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">François Fournier</a>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="https://francoisfournier.fr" title="Version française" style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:rgba(155,147,176,0.45);text-decoration:none;border:1px solid rgba(155,147,176,0.15);padding:0.25rem 0.55rem;border-radius:3px;transition:all 0.2s" onmouseover="this.style.color='white';this.style.borderColor='rgba(255,255,255,0.35)'" onmouseout="this.style.color='rgba(155,147,176,0.45)';this.style.borderColor='rgba(155,147,176,0.15)'">🇫🇷 FR</a>
+      <a href="#contact" class="nav-cta">Contact me</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Fractional CTO · Remote-first</div>
+      <div style="font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:rgba(250,180,0,0.35);margin-top:0.5rem;">Innovation &amp; Tradition</div>
+      <h1 class="hero-title">
+        I help startups<br>
+        ship faster,<br>
+        <em>build smarter.</em>
+      </h1>
+      <p class="hero-subtitle">
+        A tech decision left pending costs more than the decision itself.
+        I step in <strong>a few days a month</strong> to diagnose the situation,
+        make the call with you, and structure what comes next.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Let's talk</a>
+        <a href="#how" class="btn-secondary">Comment j'interviens</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span class="scroll-line"></span>
+      Scroll
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="section-intro" id="approach">
+    <div class="container">
+      <div class="intro-layout">
+        <div>
+          <div class="section-label fade-up">L'approche</div>
+          <h2 class="section-title fade-up">Pas de slide deck.<br><em>Decisions.</em></h2>
+        </div>
+        <div class="intro-text fade-up">
+          <p>
+            Les fondaters reach out when a technical decision <strong>bloque tout le reste</strong> —
+            choosing a stack, deciding between refactor and patch, hiring the right person,
+            get a team moving again.
+          </p>
+          <p>
+            My role: diagnose the situation, make the call with you, structure what comes next.
+            I don't produce 40-page reports. I <strong>unblock what's blocked.</strong>
+          </p>
+          <div class="intro-quote">
+            <p>
+              "The real cost of a bad tech decision isn't what it takes to fix it.
+              It's everything you couldn't build while you were hesitating."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POUR QUI -->
+  <section class="section-pourqui" id="who">
+    <div class="container">
+      <div class="section-label fade-up">Who it's for</div>
+      <h2 class="section-title fade-up">Do any of these<br><em>sound familiar?</em></h2>
+      <div class="pourqui-grid">
+        <div class="pourqui-card fade-up">
+          <div class="pourqui-number">01</div>
+          <h3>Startup without a CTO</h3>
+          <p>
+            You move fast but tech decisions pile up with no one to arbitrate.
+            You need an expert without the cost of un CDI.
+          </p>
+        </div>
+        <div class="pourqui-card fade-up">
+          <div class="pourqui-number">02</div>
+          <h3>Fondateur non-technique</h3>
+          <p>
+            You understand your business perfectly — but not always your tech vendors.
+            You want somprendre sans depend.
+          </p>
+        </div>
+        <div class="pourqui-card fade-up">
+          <div class="pourqui-number">03</div>
+          <h3>Équipe qui tourne en rond</h3>
+          <p>
+            Your CTO is overwhelmed or the team needs an outside perspective to
+            decide on architecture, hiring, priorities.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT J'INTERVIENS -->
+  <section class="section-how" id="how">
+    <div class="container">
+      <div class="how-layout">
+        <div>
+          <div class="section-label fade-up">Terms</div>
+          <h2 class="section-title fade-up">Comment<br><em>j'interviens</em></h2>
+          <p style="color: var(--gris-texte); font-size: 0.9rem; line-height: 1.8; margin-top: 1rem;" class="fade-up">
+            Trois formats selon ce dont vous avez besoin —
+            from one-off decisions to ongoing co-pilotingge regular.
+          </p>
+        </div>
+        <div>
+          <div class="how-item fade-up">
+            <div class="how-icon">🔍</div>
+            <div>
+              <h3>Audit strategic</h3>
+              <p>
+                Clarifier la situation, identifier les vrais blocages, repartir avec
+                des priorities claires et une feuille de route actionnables.
+                Format ponctuel, livrable concret.
+              </p>
+            </div>
+          </div>
+          <div class="how-item fade-up">
+            <div class="how-icon">🧭</div>
+            <div>
+              <h3>Support regular</h3>
+              <p>
+                Un ou deux jours par semaine pour co-pilot decisions over time.
+                Recrutements, architecture, choitools, decisions with the team.
+              </p>
+            </div>
+          </div>
+          <div class="how-item fade-up">
+            <div class="how-icon">⚡</div>
+            <div>
+              <h3>Intervention targeted</h3>
+              <p>
+                A tech hire to validate, a vendor to assess, an architecture decision to settle.
+                One day, one topic, one outcome.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section class="section-parcours" id="parcours">
+    <div class="container">
+      <div class="parcours-layout">
+        <div class="parcours-portrait">
+          <div class="portrait-frame">
+            <img src="/assets/img-f255a1d274.jpg" alt="François Fournier" style="width:100%;height:100%;object-fit:cover;object-position:center 8%;display:block;">
+          </div>
+          <div class="parcours-creds">
+            <span class="cred-tag">PhD</span>
+            <span class="cred-tag">MSc</span>
+            <span class="cred-tag">BSc (hons)</span>
+            <span class="cred-tag">CMgr MCMI</span>
+            <span class="cred-tag">DUT</span>
+            <span class="cred-tag">CC CL</span>
+          </div>
+        </div>
+        <div class="parcours-content">
+          <div class="section-label fade-up">Background</div>
+          <h2 class="section-title fade-up">Researcher, developer,<br><em>manager.</em></h2>
+          <p class="fade-up">
+            I've built software, led teams, created products from scratch.
+            <strong>PhD in Computer Science</strong>, management-certified (CMgr MCMI),
+            I also teach at university (MMI — Digital Media & Internet).
+          </p>
+          <p class="fade-up">
+            I've worked across corporate environments and independent projects alike.
+            Ce qui me permet de <strong>parler tech and business in the same sentence</strong> —
+            sans perdre l'un pour l'autre.
+          </p>
+          <p class="fade-up">
+            My roots in the social and solidarity economy
+            taught me to do more with less, and to value decisions
+            that hold over time rather than those that impress in the moment.
+          </p>
+          <p class="fade-up">
+            From AI to woodworking planes, from software architecture to traditional craft — I believe in a life of independence and reasoned co-dependence. Technology should empower, not entangle.
+          </p>
+          <p class="fade-up" style="margin-top:2rem;">
+            <a href="/career/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet-clair);text-decoration:none;border-bottom:1px solid rgba(250,180,0,0.3);padding-bottom:2px;transition:all 0.2s ease;" onmouseover="this.style.color='white';this.style.borderColor='rgba(250,180,0,0.8)'" onmouseout="this.style.color='var(--violet-clair)';this.style.borderColor='rgba(250,180,0,0.3)'">
+              Full background →
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section class="section-projets" id="projets">
+    <div class="container">
+      <div class="section-label fade-up">Side Projects</div>
+      <h2 class="section-title fade-up">I build<br><em>constantly.</em></h2>
+      <div class="projets-intro fade-up">
+        <p>
+          Alongside my main work, I keep building.
+          These projects are not trivial: <strong>they prove that I understand
+          what it means to build something from nothing.</strong>
+        </p>
+      </div>
+      <div class="projets-grid">
+
+        <a href="https://mayetlab.fr" class="projet-item fade-up" target="_blank" rel="noopener">
+          <div class="projet-tag">Makerspace</div>
+          <h3>MayetLab</h3>
+          <p>Open rural fablab — makers, repair, local craft knowledge.</p>
+        </a>
+        <a href="https://debrouille.co" class="projet-item fade-up" target="_blank" rel="noopener">
+          <div class="projet-tag">Video</div>
+          <h3>Debrouille.co</h3>
+          <p>The art of getting by — to fend, to manage, to unravel out. Celebrating self-reliance.</p>
+        </a>
+        <a href="https://citoyen.science" class="projet-item fade-up" target="_blank" rel="noopener">
+          <div class="projet-tag">Science outreach</div>
+          <h3>Citoyen.science</h3>
+          <p>Explaining everyday science in plain language.</p>
+        </a>
+        <a href="https://simitless.com" class="projet-item fade-up" target="_blank" rel="noopener">
+          <div class="projet-tag" style="background:rgba(250,180,0,0.08);color:#fab400;border-color:rgba(250,180,0,0.2);">Revival</div>
+          <h3>Simitless</h3>
+          <p>No-code platform for custom information systems. V2 in progress.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS RÉFÉRENCES -->
+  <section class="section-logos">
+    <div class="logos-label fade-up">Trusted by</div>
+    <div class="logos-grid">
+
+      <div class="logos-group-label">Recent clients</div>
+
+      <div class="logo-item fade-up">
+        <img src="/assets/img-ee0cea537a.webp" alt="Music Brain Training Co">
+        <div class="logo-sublabel">EdTech / Musique</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-296358bd5a.png" alt="Grantwiser">
+        <div class="logo-sublabel">FinTech</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-7e915cfdf4.jpg" alt="Zypzap">
+        <div class="logo-sublabel">Tech</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-915db74b6d.webp" alt="UCA">
+        <div class="logo-sublabel">University</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-4cdfa5c0ce.png" alt="NJNOOS Energies">
+        <div class="logo-sublabel">Energy</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-72ff47717f.png" alt="Simitless">
+        <div class="logo-sublabel">SaaS · V2 in progress</div>
+      </div>
+
+      <div class="logos-divider"></div>
+      <div class="logos-group-label">Past experience</div>
+
+      <div class="logo-item fade-up">
+        <img src="/assets/img-d4548dec19.png" alt="IHS">
+        <div class="logo-sublabel">Industrial Data</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-7c03d7659c.webp" alt="ODS-Petrodata">
+        <div class="logo-sublabel">Energy & Data</div>
+      </div>
+      <div class="logo-item fade-up">
+        <img src="/assets/img-777f317149.png" alt="RGU">
+        <div class="logo-sublabel">University</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta" id="contact">
+    <div class="container">
+      <div class="cta-content">
+        <div class="section-label fade-up">Contact</div>
+        <h2 class="section-title fade-up">
+          A tech decision<br>
+          <em>stuck in limbo?</em>
+        </h2>
+        <p class="fade-up">
+          Describe your situation in a few lines.
+          I'll get back vers vous rapideme to see if I can help.
+        </p>
+        <div class="hero-actions" style="justify-content: center;" class="fade-up">
+          <a href="mailto:bonjour@francoisfournier.fr" class="btn-primary">Écrire un message</a>
+          <a href="https://www.linkedin.com/in/francoisfournier" class="btn-secondary" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <a href="mailto:bonjour@francoisfournier.fr" class="cta-email">bonjour@francoisfournier.eu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p>© 2004–2025 François Fournier — <a href="/legal/" style="color:inherit;opacity:0.5;text-decoration:none;">Legal notice</a> · <a href="https://francoisfournier.fr/legal/" style="color:inherit;opacity:0.5;text-decoration:none;">Mentions légales (FR)</a></p>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/francoisfournier" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://simitless.com" target="_blank" rel="noopener">Simitless</a>
+        <a href="https://mayetlab.fr" target="_blank" rel="noopener">MayetLab</a>
+        <a href="https://debrouille.co" target="_blank" rel="noopener">Debrouille.co</a>
+        <a href="/career/">Academic background</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 60
+        ? 'rgba(14,14,16,0.97)'
+        : 'linear-gradient(to bottom, rgba(14,14,16,0.95), transparent)';
+    });
+  </script>
+</body>
+</html>

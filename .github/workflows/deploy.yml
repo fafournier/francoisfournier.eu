@@ -1,0 +1,159 @@
+# ──────────────────────────────────────────────────────────────────────
+# Site vitrine — déploiement
+#
+# Pas d'étape de construction : trois pages écrites à la main, servies
+# telles quelles depuis public/. Un générateur ne supprimerait pas le
+# travail de traduction, seulement la duplication de l'ossature — et
+# elle est déjà écrite.
+#
+# Les URL propres viennent de l'arborescence : /career/ est un dossier
+# contenant index.html. Rien à réécrire côté Apache, donc rien qui casse
+# le jour où sa configuration change.
+# ──────────────────────────────────────────────────────────────────────
+
+name: Déploiement
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - ".github/workflows/deploy.yml"
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simuler : se connecter et contrôler, sans rien écrire"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Aucune ressource ne doit venir d'un domaine tiers. Ce site vend du
+      # conseil technique : y laisser Google Fonts transmettrait l'IP du
+      # visiteur hors UE sans consentement, sur les pages commerciales.
+      - name: Vérifier l'absence de ressource tierce
+        run: python3 tools/check-third-party.py public
+
+      # Les liens de navigation pointent /career/ et /legal/. Ce contrôle
+      # existe parce qu'ils ont réellement été morts : les fichiers
+      # s'appelaient career.html et legal.html.
+      - name: Vérifier les liens internes
+        run: python3 tools/check-links.py public
+
+      - name: Déployer sur o2switch (FTPS)
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          FTP_HOST: ${{ vars.DEPLOY_FTP_HOST || secrets.DEPLOY_FTP_HOST }}
+          FTP_PATH: ${{ vars.DEPLOY_FTP_PATH || secrets.DEPLOY_FTP_PATH }}
+          FTP_USER: ${{ secrets.DEPLOY_FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.DEPLOY_FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          [ -n "${FTP_PATH:-}" ] || {
+            echo "::error::DEPLOY_FTP_PATH n'est pas renseigné." >&2; exit 1; }
+
+          case "$FTP_PASSWORD" in
+            *,*) echo "::error::Le mot de passe FTP contient une virgule, que lftp interprète comme séparateur. Régénérez-le sans virgule." >&2
+                 exit 1 ;;
+          esac
+
+          [ -f public/index.html ] || {
+            echo "::error::public/index.html absent." >&2; exit 1; }
+
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
+          REGLAGES="
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate true;
+            set net:max-retries 3;
+            set net:timeout 20;
+          "
+
+          # Le serveur FTP d'un mutualisé présente le certificat du serveur,
+          # pas celui du domaine. lftp ne dit pas quels noms sont couverts.
+          echo "Certificat présenté par le serveur FTPS :"
+          NOMS=$(echo | openssl s_client -starttls ftp -connect "$FTP_HOST:21" \
+                   -servername "$FTP_HOST" 2>/dev/null \
+                 | openssl x509 -noout -subject -ext subjectAltName 2>/dev/null \
+                 | grep -oE '[A-Za-z0-9*._-]+\.[A-Za-z]{2,}' | sort -u || true)
+          if [ -z "$NOMS" ]; then
+            echo "::warning::Impossible de lire le certificat — lftp tranchera."
+          else
+            echo "$NOMS" | sed 's/^/    /'
+            if ! echo "$NOMS" | grep -qxF -- "$FTP_HOST" \
+               && ! echo "$NOMS" | grep -qxF -- "*.${FTP_HOST#*.}"; then
+              echo "::error::Le certificat FTPS ne couvre pas le nom d'hôte utilisé. Remplacez DEPLOY_FTP_HOST par l'un des noms listés ci-dessus." >&2
+              exit 1
+            fi
+          fi
+
+          # mirror --delete efface tout ce qui n'est pas dans public/. Si la
+          # cible est la racine du compte cPanel plutôt que celle du site,
+          # il emporterait la messagerie et les autres sites.
+          echo "Inspection de '$FTP_PATH'…"
+          CIBLE=$(lftp -u "$FTP_USER,$FTP_PASSWORD" "ftp://$FTP_HOST" \
+                    -e "$REGLAGES cls -1 '$FTP_PATH'; bye")
+          echo "$CIBLE" | sed 's/^/    /'
+          for INTERDIT in mail etc logs ssl tmp public_html .cpanel .trash; do
+            if echo "$CIBLE" | sed 's#/$##' | grep -qx "$INTERDIT"; then
+              echo "::error::La cible contient '$INTERDIT' : c'est la racine du compte cPanel, pas celle d'un site." >&2
+              exit 1
+            fi
+          done
+
+          SIMULATION=""
+          if [ "${DRY_RUN:-}" = "true" ]; then
+            SIMULATION="--dry-run"
+            echo "::notice::Simulation — rien ne sera écrit."
+          fi
+
+          # .htaccess commence par un point : sans --allow-chown ni exclusion
+          # explicite, lftp le transfère comme les autres, mais mirror ignore
+          # les fichiers cachés par défaut. -a le force.
+          lftp -u "$FTP_USER,$FTP_PASSWORD" "ftp://$FTP_HOST" -e "
+            $REGLAGES
+            mirror --reverse --delete -a $SIMULATION --parallel=4 --verbose public '$FTP_PATH';
+            bye
+          "
+
+          if [ -z "$SIMULATION" ]; then
+            BASE=$(grep -o 'rel="canonical" href="[^"]*"' public/index.html \
+                   | head -1 | sed 's/.*href="//; s/"$//')
+            if [ -n "$BASE" ]; then
+              URL="${BASE%/}/assets/fonts.css"
+              echo "Contrôle de la feuille de polices déployée : $URL"
+              if curl -fsS --max-time 25 -o /tmp/deploye.css "$URL"; then
+                if [ "$(sha256sum public/assets/fonts.css | cut -d' ' -f1)" \
+                   = "$(sha256sum /tmp/deploye.css | cut -d' ' -f1)" ]; then
+                  echo "    identique au dépôt — le site est bien servi."
+                else
+                  echo "::warning::La feuille de polices en ligne diffère. Transfert encore en cours, ou altéré en route."
+                fi
+              else
+                echo "::warning::Injoignable à $URL. Transfert incomplet, ou DNS/AutoSSL pas encore prêts."
+              fi
+            fi
+          fi
+
+      - name: Récapitulatif
+        run: |
+          echo "### Déploiement" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Pages : $(find public -name '*.html' | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "Poids total : $(du -sh public | cut -f1)" >> $GITHUB_STEP_SUMMARY

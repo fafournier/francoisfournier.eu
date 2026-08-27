@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>François Fournier — Legal Notice</title>
+  <link rel="canonical" href="https://francoisfournier.eu/legal/">
+  <link rel="alternate" hreflang="en" href="https://francoisfournier.eu/legal/">
+  <link rel="alternate" hreflang="fr" href="https://francoisfournier.fr/legal/">
+  <link rel="alternate" hreflang="x-default" href="https://francoisfournier.fr/legal/">
+  <link rel="stylesheet" href="/assets/fonts.css">
+  <style>
+    :root {
+      --noir: #0e0e10;
+      --violet-profond: #0a0a0c;
+      --violet: #111214;
+      --violet-accent: #fab400;
+      --violet-clair: #fcd34d;
+      --blanc: #f8f6ff;
+      --gris-clair: #e8e4f0;
+      --gris-texte: #9b93b0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--noir);
+      color: var(--blanc);
+      line-height: 1.8;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(14,14,16,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(250,180,0,0.08);
+    }
+    .nav-logo {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blanc);
+      text-decoration: none;
+    }
+    .nav-back {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris-texte);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--blanc); }
+
+    .page-hero {
+      padding: 12rem 3rem 5rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .page-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--violet-clair);
+      margin-bottom: 1.5rem;
+    }
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      color: var(--blanc);
+      margin: 0 0 1rem;
+    }
+    .page-subtitle {
+      color: var(--gris-texte);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .legal-content {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 3rem 8rem;
+    }
+
+    .legal-section {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3.5rem;
+      border-bottom: 1px solid rgba(250,180,0,0.08);
+    }
+    .legal-section:last-child { border-bottom: none; }
+
+    .legal-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--blanc);
+      margin: 0 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .legal-section h2::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--violet-accent);
+      flex-shrink: 0;
+    }
+
+    .legal-section p {
+      color: var(--gris-texte);
+      margin: 0 0 1rem;
+      font-size: 0.9rem;
+    }
+    .legal-section p:last-child { margin-bottom: 0; }
+
+    .legal-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0.5rem 1.5rem;
+      font-size: 0.88rem;
+      margin-bottom: 0.6rem;
+      align-items: baseline;
+    }
+    .legal-row dt {
+      color: var(--gris-texte);
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .legal-row dd {
+      margin: 0;
+      color: var(--blanc);
+    }
+    .legal-row dd a {
+      color: var(--violet-clair);
+      text-decoration: none;
+    }
+    .legal-row dd a:hover { text-decoration: underline; }
+
+    .placeholder {
+      background: rgba(250,180,0,0.06);
+      border: 1px dashed rgba(250,180,0,0.25);
+      border-radius: 3px;
+      padding: 0.15rem 0.5rem;
+      color: var(--violet-clair);
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .notice-box {
+      background: rgba(250,180,0,0.04);
+      border-left: 2px solid rgba(250,180,0,0.3);
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: var(--gris-texte);
+      border-radius: 0 4px 4px 0;
+    }
+
+    footer {
+      background: var(--noir);
+      border-top: 1px solid rgba(250,180,0,0.08);
+      padding: 2.5rem 3rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+    footer p { font-size: 0.75rem; color: var(--gris-texte); margin: 0; }
+    footer a { color: inherit; opacity: 0.5; text-decoration: none; }
+    footer a:hover { opacity: 1; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .page-hero { padding: 9rem 1.5rem 3rem; }
+      .legal-content { padding: 0 1.5rem 5rem; }
+      .legal-row { grid-template-columns: 1fr; gap: 0.2rem; margin-bottom: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">François Fournier</a>
+    <a href="/" class="nav-back">← Back</a>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-eyebrow">Legal information</div>
+    <h1 class="page-title">Legal Notice</h1>
+    <p class="page-subtitle">This site is published and operated by François Fournier, a professional registered in France. French law applies. The French version of these notices (<a href="https://francoisfournier.fr/legal/" style="color:var(--violet-clair);">francoisfournier.fr/legal/</a>) is the legally binding reference document.</p>
+  </div>
+
+  <div class="legal-content">
+
+    <!-- 1. PUBLISHER -->
+    <div class="legal-section">
+      <h2>Publisher</h2>
+      <div class="notice-box">
+        Under French law (LCEN, article 6-III), the following information is mandatory for any professional website.
+      </div>
+      <dl>
+        <div class="legal-row">
+          <dt>Name</dt>
+          <dd>François Fournier</dd>
+        </div>
+        <div class="legal-row">
+          <dt>Legal status</dt>
+          <dd>MayetCo SAS</dd>
+        </div>
+        <div class="legal-row">
+          <dt>SIRET number</dt>
+          <dd>920 330 420 00018</dd>
+        </div>
+        <div class="legal-row">
+          <dt>Email</dt>
+          <dd><a href="mailto:fr@ncois.francoisfournier.eu">fr@ncois.francoisfournier.eu</a></dd>
+        </div>
+        <div class="legal-row">
+          <dt>Publication director</dt>
+          <dd>François Fournier</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- 2. HOSTING -->
+    <div class="legal-section">
+      <h2>Hosting provider</h2>
+      <dl>
+        <div class="legal-row">
+          <dt>Company</dt>
+          <dd>o2switch SAS</dd>
+        </div>
+        <div class="legal-row">
+          <dt>Address</dt>
+          <dd>222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France</dd>
+        </div>
+        <div class="legal-row">
+          <dt>Website</dt>
+          <dd><a href="https://www.o2switch.fr" target="_blank" rel="noopener">o2switch.fr</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- 3. INTELLECTUAL PROPERTY -->
+    <div class="legal-section">
+      <h2>Intellectual property</h2>
+      <p>All content on this site (text, images, logos, structure) is the exclusive property of François Fournier unless otherwise stated. Any reproduction, representation, modification or exploitation, in whole or in part, by any means, without the prior written authorisation of the publisher, is strictly prohibited and constitutes infringement under French intellectual property law (Code de la Propriété Intellectuelle, articles L.335-2 et seq.).</p>
+      <p>The logos of companies and organisations shown in the "Trusted by" section are the property of their respective owners and are used solely to illustrate professional references.</p>
+    </div>
+
+    <!-- 4. PERSONAL DATA -->
+    <div class="legal-section">
+      <h2>Personal data & GDPR</h2>
+      <p>This site does not collect personal data through forms or tracking tools. No advertising or analytics cookies are placed on your device.</p>
+      <p>If you contact the publisher by email, your data (name, email address, message content) is used solely to process your request and is not shared with any third party.</p>
+      <p>In accordance with the EU General Data Protection Regulation (GDPR) and French data protection law, you have the right to access, correct and delete any personal data concerning you. To exercise this right, contact: <a href="mailto:fr@ncois.francoisfournier.eu" style="color: var(--violet-clair);">fr@ncois.francoisfournier.eu</a>.</p>
+      <p>As the data controller is established in France, any complaints may also be addressed to the CNIL (Commission Nationale de l'Informatique et des Libertés) at <a href="https://www.cnil.fr" target="_blank" rel="noopener" style="color:var(--violet-clair);">cnil.fr</a>.</p>
+    </div>
+
+    <!-- 5. COOKIES -->
+    <div class="legal-section">
+      <h2>Cookies</h2>
+      <p>This site does not use tracking, analytics or advertising cookies. Only strictly necessary technical cookies may be set for the site to function correctly.</p>
+    </div>
+
+    <!-- 6. LIABILITY -->
+    <div class="legal-section">
+      <h2>Limitation of liability</h2>
+      <p>The publisher makes every effort to ensure the accuracy and currency of information published on this site, but cannot guarantee the completeness or accuracy of such information. The publisher accepts no liability for errors, omissions or results obtained through misuse of the information provided.</p>
+      <p>This site may contain hyperlinks to third-party websites. The publisher has no control over those sites and accepts no responsibility for their content.</p>
+    </div>
+
+    <!-- 7. APPLICABLE LAW -->
+    <div class="legal-section">
+      <h2>Applicable law</h2>
+      <p>These notices are governed by French law. In the event of a dispute, and after an attempt at amicable resolution, the French courts shall have sole jurisdiction.</p>
+      <p style="margin-top: 2rem; font-size: 0.8rem; color: rgba(155,147,176,0.5);">Last updated: February 2026</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© 2004–2026 François Fournier — <a href="/legal/">Legal notice</a> · <a href="https://francoisfournier.fr/legal/">Mentions légales (FR)</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
