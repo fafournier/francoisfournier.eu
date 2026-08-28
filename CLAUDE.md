@@ -89,5 +89,7 @@ Deux points ouverts, non traités car ils ne relèvent pas de la traduction :
 - les pages annoncent « Twenty years » alors que le blog anglais a été passé à
   25 ans. La page française dit « vingt ans » : corriger une seule des deux
   créerait une divergence. À trancher pour les deux à la fois.
-- `bonjour@francoisfournier.eu` est l'adresse affichée sur la page anglaise.
-  Vérifier qu'elle existe.
+L'adresse de contact est `fr@ncois.francoisfournier.fr`, la même sur les cinq
+sites. Le domaine porte un catch-all, donc les variantes que les lecteurs
+recopieront de mémoire arrivent aussi. **Ne pas la « corriger » : le @ interne
+est voulu, et la partie locale est bien `fr`.**
