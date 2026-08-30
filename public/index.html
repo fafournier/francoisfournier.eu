@@ -57,6 +57,18 @@
       opacity: 0.85;
     }
 
+    .nav-link {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--gris-clair);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-link:hover { opacity: 1; }
+
     .nav-cta {
       font-size: 0.8rem;
       font-weight: 600;
@@ -732,7 +744,6 @@
       .projets-grid { grid-template-columns: repeat(2, 1fr); }
 
       .parcours-portrait { position: static; }
-      .portrait-frame { aspect-ratio: 4/3; }
 
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -749,6 +760,7 @@
   <nav>
     <a href="#" class="nav-logo">François Fournier</a>
     <div style="display:flex;align-items:center;gap:1rem;">
+      <a href="https://blog.francoisfournier.eu" class="nav-link">The Signal</a>
       <a href="https://francoisfournier.fr" title="Version française" style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:rgba(155,147,176,0.45);text-decoration:none;border:1px solid rgba(155,147,176,0.15);padding:0.25rem 0.55rem;border-radius:3px;transition:all 0.2s" onmouseover="this.style.color='white';this.style.borderColor='rgba(255,255,255,0.35)'" onmouseout="this.style.color='rgba(155,147,176,0.45)';this.style.borderColor='rgba(155,147,176,0.15)'">🇫🇷 FR</a>
       <a href="#contact" class="nav-cta">Contact me</a>
     </div>
@@ -1057,6 +1069,7 @@
     <div class="footer-inner">
       <p>© 2004–2025 François Fournier — <a href="/legal/" style="color:inherit;opacity:0.5;text-decoration:none;">Legal notice</a> · <a href="https://francoisfournier.fr/legal/" style="color:inherit;opacity:0.5;text-decoration:none;">Mentions légales (FR)</a></p>
       <div class="footer-links">
+        <a href="https://blog.francoisfournier.eu">The Signal</a>
         <a href="https://www.linkedin.com/in/francoisfournier" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://simitless.com" target="_blank" rel="noopener">Simitless</a>
         <a href="https://mayetlab.fr" target="_blank" rel="noopener">MayetLab</a>
