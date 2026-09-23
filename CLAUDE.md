@@ -48,6 +48,32 @@ sont identiques de part et d'autre : `/career/` existe dans les deux langues.
 l'autre, et `x-default` vers le français. Sans quoi Google lit deux traductions
 comme du contenu dupliqué.
 
+## Partage et données structurées
+
+Chaque page porte sa `description`, ses balises Open Graph et Twitter, et
+l'accueil un JSON-LD `Person` + `Organization` (SIREN compris). Sans elles,
+un lien posté sur LinkedIn sortait en URL nue.
+
+`tools/make-og.py` fabrique `public/assets/og.jpg` à partir du titre, de la
+palette et du portrait, tous lus dans `public/index.html` — il n'y a pas de
+fichier de configuration ici, et recopier les valeurs les ferait diverger.
+
+**Ce script ne tourne pas dans le workflow**, comme la génération
+d'illustrations sur les blogs : le rendu d'une police n'est pas garanti
+identique d'une version de Pillow à l'autre. À la main, regardé, commité.
+
+`sameAs` du `Person` liste LinkedIn, l'autre domaine et les deux blogs.
+C'est ce que moteurs et modèles suivent pour rattacher une même entité à
+plusieurs adresses — y ajouter l'identifiant Wikidata le jour où il existe.
+
+**Chaque `<img>` porte `width` et `height` réels**, lus dans le fichier.
+Sans eux la page se réagence pendant le chargement. Le portrait d'accueil
+porte `fetchpriority="high"` et non `loading="lazy"` : c'est lui que mesure
+le LCP.
+
+`public/llms.txt` — convention llmstxt.org, écrit à la main ici puisqu'il n'y
+a que trois pages, et référencé depuis `robots.txt`.
+
 ## Avant de pousser
 
 ```bash

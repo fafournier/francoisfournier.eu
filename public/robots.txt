@@ -3,3 +3,7 @@ User-agent: *
 Disallow:
 
 Sitemap: https://francoisfournier.eu/sitemap.xml
+
+# Carte du site à l'usage des modèles de langage (llmstxt.org)
+# LLM site map
+# https://francoisfournier.eu/llms.txt

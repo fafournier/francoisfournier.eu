@@ -1,0 +1,39 @@
+# François Fournier — Fractional CTO
+
+> A tech decision left pending costs more than the decision itself.
+> Fractional CTO: a few days a month to diagnose the situation, make the
+> call with you, and structure what comes next.
+
+Twenty-five years building, researching and leading — researcher, software
+engineer, manager, entrepreneur. Specialising in the R&D → production
+transition for software, data and AI systems.
+
+Publisher: MayetCo SAS, SIREN 920330420, France.
+
+## Pages
+
+- [Home](https://francoisfournier.eu/) : the fractional CTO offer, the
+  situations it addresses, and the companies worked with.
+- [Career](https://francoisfournier.eu/career/) : the full professional and
+  academic background.
+- [Legal notice](https://francoisfournier.eu/legal/) : publisher, host,
+  intellectual property and personal data.
+
+## Writing
+
+- [Le Signal](https://blog.francoisfournier.fr/) : professional blog, in
+  French — technical decisions, debt, AI, governance.
+  Site map: https://blog.francoisfournier.fr/llms.txt
+- [Pragmatique](https://pragmatique.francoisfournier.fr/) : technical and
+  teaching blog, in French, for students.
+  Site map: https://pragmatique.francoisfournier.fr/llms.txt
+
+## Elsewhere
+
+- [French version](https://francoisfournier.fr/)
+- [LinkedIn](https://www.linkedin.com/in/francoisfournier/)
+
+## About this file
+
+llmstxt.org convention. This site is static, loads no third-party resource,
+sets no cookie and collects no data. All its content is written by a human.
