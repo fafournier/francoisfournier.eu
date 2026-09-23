@@ -26,6 +26,16 @@ par `public/assets/fonts.css`. Ce site vend du conseil technique : une IP de
 visiteur transmise hors UE sans consentement y est un défaut RGPD gratuit.
 `tools/check-third-party.py` fait échouer le déploiement le cas échéant.
 
+**En-têtes de sécurité dans `public/.htaccess`.** `script-src 'self'`, sans
+exception. Le script de la page est dans `public/assets/app.js` pour cette
+raison, et les survols sont en CSS : les attributs `onmouseover=` étaient
+refusés par la CSP et seraient devenus inertes sans rien signaler.
+
+Les règles `:hover` portent `!important` — les éléments concernés déclarent
+leur couleur de repos dans un attribut `style=`, qui l'emporte sinon.
+
+`tools/check-csp.py` lit la CSP déployée et refuse ce qu'elle refuserait.
+
 **Pas d'image en base64 dans le HTML.** Les images vivent dans
 `public/assets/`, nommées `img-<empreinte>.<ext>`. L'inline coûte 33 % de
 surpoids et interdit la mise en cache — c'était 95 % du poids de l'accueil.

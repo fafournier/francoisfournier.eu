@@ -752,6 +752,17 @@
       .projets-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; align-items: flex-start; }
     }
+
+    /* Survols repris des attributs onmouseover/onmouseout, que
+       script-src 'self' refuse. Mêmes valeurs, sans JavaScript.
+
+       !important est nécessaire : ces éléments portent leur couleur de
+       repos dans un attribut style=, qui l'emporte sur un sélecteur de
+       classe. L'ancien onmouseover contournait le problème en écrivant
+       dans ce même style en ligne. Vérifié au navigateur : sans
+       !important, le survol ne fait plus rien du tout. */
+    .survol-1:hover { color: white !important; border-color: rgba(255,255,255,0.35) !important; }
+    .survol-2:hover { color: white !important; border-color: rgba(250,180,0,0.8) !important; }
   </style>
 </head>
 <body>
@@ -761,7 +772,7 @@
     <a href="#" class="nav-logo">François Fournier</a>
     <div style="display:flex;align-items:center;gap:1rem;">
       <a href="https://blog.francoisfournier.eu" class="nav-link">The Signal</a>
-      <a href="https://francoisfournier.fr" title="Version française" style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:rgba(155,147,176,0.45);text-decoration:none;border:1px solid rgba(155,147,176,0.15);padding:0.25rem 0.55rem;border-radius:3px;transition:all 0.2s" onmouseover="this.style.color='white';this.style.borderColor='rgba(255,255,255,0.35)'" onmouseout="this.style.color='rgba(155,147,176,0.45)';this.style.borderColor='rgba(155,147,176,0.15)'">🇫🇷 FR</a>
+      <a class="survol-1" href="https://francoisfournier.fr" title="Version française" style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:rgba(155,147,176,0.45);text-decoration:none;border:1px solid rgba(155,147,176,0.15);padding:0.25rem 0.55rem;border-radius:3px;transition:all 0.2s">🇫🇷 FR</a>
       <a href="#contact" class="nav-cta">Contact me</a>
     </div>
   </nav>
@@ -944,7 +955,7 @@
             From AI to woodworking planes, from software architecture to traditional craft — I believe in a life of independence and reasoned co-dependence. Technology should empower, not entangle.
           </p>
           <p class="fade-up" style="margin-top:2rem;">
-            <a href="/career/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet-clair);text-decoration:none;border-bottom:1px solid rgba(250,180,0,0.3);padding-bottom:2px;transition:all 0.2s ease;" onmouseover="this.style.color='white';this.style.borderColor='rgba(250,180,0,0.8)'" onmouseout="this.style.color='var(--violet-clair)';this.style.borderColor='rgba(250,180,0,0.3)'">
+            <a class="survol-2" href="/career/" style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet-clair);text-decoration:none;border-bottom:1px solid rgba(250,180,0,0.3);padding-bottom:2px;transition:all 0.2s ease;">
               Full background →
             </a>
           </p>
@@ -1079,26 +1090,6 @@
     </div>
   </footer>
 
-  <script>
-    // Fade-up on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // Nav background on scroll
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.background = window.scrollY > 60
-        ? 'rgba(14,14,16,0.97)'
-        : 'linear-gradient(to bottom, rgba(14,14,16,0.95), transparent)';
-    });
-  </script>
+  <script src="/assets/app.js" defer></script>
 </body>
 </html>

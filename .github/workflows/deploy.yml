@@ -53,6 +53,13 @@ jobs:
       - name: Vérifier les liens internes
         run: python3 tools/check-links.py public
 
+      # Une CSP stricte ne casse rien à la construction : elle casse dans le
+      # navigateur du lecteur, en silence. Les survols de la page étaient
+      # écrits en onmouseover= — refusés par script-src 'self' — et seraient
+      # devenus inertes sans que rien ne le signale.
+      - name: Vérifier la compatibilité avec la CSP déployée
+        run: python3 tools/check-csp.py public public/.htaccess
+
       - name: Déployer sur o2switch (FTPS)
         env:
           DRY_RUN: ${{ inputs.dry_run }}
