@@ -9,7 +9,16 @@ RewriteOptions inherit
 # ou partagées. Un 301 transmet l'ancienneté acquise à la nouvelle URL.
 Redirect 301 /career_en.html https://francoisfournier.eu/career/
 Redirect 301 /legal_en.html https://francoisfournier.eu/legal/
-Redirect 301 /index_en.html https://francoisfournier.eu/
+# L'accueil, lui, ne peut pas passer par Redirect. Apache associe « / » à
+# index.html avant que mod_alias intervienne : la redirection se déclenchait
+# donc sur la page d'accueil elle-même et renvoyait vers elle-même — 301 en
+# boucle, site inaccessible. Constaté en ligne.
+#
+# %{THE_REQUEST} est la première ligne de la requête HTTP telle qu'elle est
+# arrivée. La règle ne se déclenche donc que si le navigateur a réellement
+# demandé /index_en.html, jamais sur l'association interne.
+RewriteCond %{THE_REQUEST} \s/index_en\.html[\s?] [NC]
+RewriteRule ^index_en\.html$ https://francoisfournier.eu/ [R=301,L]
 
 # Cache long sur les ressources empreintées ou stables.
 <IfModule mod_expires.c>

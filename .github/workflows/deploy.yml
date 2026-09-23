@@ -60,6 +60,13 @@ jobs:
       - name: Vérifier la compatibilité avec la CSP déployée
         run: python3 tools/check-csp.py public public/.htaccess
 
+      # Une redirection dont la source est index.html boucle : Apache associe
+      # « / » à ce fichier avant mod_alias, donc la règle se déclenche sur
+      # l'accueil et renvoie vers l'accueil. Rien dans la construction ne peut
+      # le voir — le HTML est correct, seul le serveur boucle.
+      - name: Vérifier les redirections
+        run: python3 tools/check-redirects.py public/.htaccess
+
       - name: Déployer sur o2switch (FTPS)
         env:
           DRY_RUN: ${{ inputs.dry_run }}
@@ -164,3 +171,26 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Pages : $(find public -name '*.html' | wc -l)" >> $GITHUB_STEP_SUMMARY
           echo "Poids total : $(du -sh public | cut -f1)" >> $GITHUB_STEP_SUMMARY
+
+      # Le déploiement disait « réussi » alors que l'accueil renvoyait un 301
+      # vers lui-même, site inaccessible : le transfert avait bien eu lieu,
+      # c'est le serveur qui bouclait. Un mirror qui réussit ne prouve donc
+      # rien sur ce que voit un lecteur. Ces quelques requêtes, si.
+      - name: Vérifier le site en ligne
+        if: github.event_name != 'workflow_dispatch' || inputs.dry_run != 'true'
+        run: |
+          echo "Attente de la propagation…"
+          sleep 20
+          ECHECS=0
+          for CHEMIN in / /career/ /legal/ /llms.txt /robots.txt /assets/og.jpg; do
+            URL="https://francoisfournier.eu$CHEMIN"
+            CODE=$(curl -sS -L --max-redirs 5 --max-time 25 \
+                     -o /dev/null -w '%{http_code}' "$URL" || echo "000")
+            if [ "$CODE" = "200" ]; then
+              echo "  $CODE  $CHEMIN"
+            else
+              echo "::error::$URL répond $CODE (attendu 200)"
+              ECHECS=$((ECHECS + 1))
+            fi
+          done
+          [ "$ECHECS" -eq 0 ] || exit 1
