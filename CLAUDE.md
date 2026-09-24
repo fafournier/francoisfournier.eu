@@ -62,11 +62,19 @@ fichier de configuration ici, et recopier les valeurs les ferait diverger.
 d'illustrations sur les blogs : le rendu d'une police n'est pas garanti
 identique d'une version de Pillow à l'autre. À la main, regardé, commité.
 
-`sameAs` du `Person` liste LinkedIn, ORCID, Google Scholar, l'autre domaine et
-les deux blogs, plus un `identifier` ORCID et `alumniOf`. C'est ce que moteurs
-et modèles suivent pour rattacher une même entité à plusieurs adresses — le
-nom est très porté, la désambiguïsation ne va pas de soi. Ajouter le QID
-Wikidata le jour où l'élément existe.
+`sameAs` du `Person` liste LinkedIn, ORCID, Wikidata (`Q141549502`), Google
+Scholar, l'autre domaine et les deux blogs. C'est ce que moteurs et modèles
+suivent pour rattacher une même entité à plusieurs adresses — « François
+Fournier » est un nom très porté, la désambiguïsation ne va pas de soi.
+
+`identifier` porte ORCID **et** Wikidata : le premier est un registre de
+chercheurs, le second un nœud du Knowledge Graph. Ils ne disent pas la même
+chose, et certains consommateurs ne lisent que l'un des deux.
+
+`alumniOf` (Robert Gordon University) et `affiliation` (IUT Clermont
+Auvergne — site de Vichy) portent chacun le QID de l'établissement : un nom
+d'école est ambigu, un QID ne l'est pas. Le diplôme dit d'où vient
+l'autorité, l'affiliation en cours qu'elle est encore exercée.
 
 **Chaque `<img>` porte `width` et `height` réels**, lus dans le fichier.
 Sans eux la page se réagence pendant le chargement. Le portrait d'accueil
