@@ -62,9 +62,11 @@ fichier de configuration ici, et recopier les valeurs les ferait diverger.
 d'illustrations sur les blogs : le rendu d'une police n'est pas garanti
 identique d'une version de Pillow à l'autre. À la main, regardé, commité.
 
-`sameAs` du `Person` liste LinkedIn, l'autre domaine et les deux blogs.
-C'est ce que moteurs et modèles suivent pour rattacher une même entité à
-plusieurs adresses — y ajouter l'identifiant Wikidata le jour où il existe.
+`sameAs` du `Person` liste LinkedIn, ORCID, Google Scholar, l'autre domaine et
+les deux blogs, plus un `identifier` ORCID et `alumniOf`. C'est ce que moteurs
+et modèles suivent pour rattacher une même entité à plusieurs adresses — le
+nom est très porté, la désambiguïsation ne va pas de soi. Ajouter le QID
+Wikidata le jour où l'élément existe.
 
 **Chaque `<img>` porte `width` et `height` réels**, lus dans le fichier.
 Sans eux la page se réagence pendant le chargement. Le portrait d'accueil
