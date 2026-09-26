@@ -54,6 +54,11 @@ Chaque page porte sa `description`, ses balises Open Graph et Twitter, et
 l'accueil un JSON-LD `Person` + `Organization` (SIREN compris). Sans elles,
 un lien posté sur LinkedIn sortait en URL nue.
 
+**L'`Organization` est celle de mayetco.fr**, par son `@id`
+`https://mayetco.fr/#organisation` — le même que déclare mayetco.fr, qui
+renvoie en retour au `@id` de la personne. Une seule entité MayetCo pour tout
+le dispositif ; ne pas lui redonner un `@id` local.
+
 `tools/make-og.py` fabrique `public/assets/og.jpg` à partir du titre, de la
 palette et du portrait, tous lus dans `public/index.html` — il n'y a pas de
 fichier de configuration ici, et recopier les valeurs les ferait diverger.
