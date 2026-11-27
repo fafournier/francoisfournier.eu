@@ -43,5 +43,5 @@ Publisher: MayetCo SAS, SIREN 920330420, France — https://mayetco.fr/
 ## About this file
 
 llmstxt.org convention. This site is static, loads no third-party resource,
-and sets no cookie. Its audience is measured without personal data. All its
-content is written by a human.
+and sets no cookie. Its audience is measured internally, anonymously and
+with no external tracker. All its content is written by a human.
