@@ -11,6 +11,7 @@ copie — et refuse ce qu'elle refuserait :
 
   script-src 'self'   → aucun <script> en ligne, aucun gestionnaire onclick=
   default-src 'self'  → aucune origine tierce dans src= ou href= de ressource
+  connect-src         → la balise de mesure vise bien un hôte autorisé
 
 style-src porte 'unsafe-inline' à dessein (mermaid écrit dans le SVG qu'il
 génère) : les styles en ligne ne sont donc pas signalés.
@@ -47,6 +48,11 @@ INLINE = re.compile(
 # confondre avec du texte.
 HANDLER = re.compile(r"<[a-z][^>]*?\son[a-z]{2,}\s*=", re.I)
 
+# La mesure d'audience : le script est servi en first-party, mais la balise
+# qu'il poste part vers data-host-url. C'est connect-src qui l'autorise.
+MESURE = re.compile(r"\bdata-website-id=", re.I)
+BALISE = re.compile(r"\bdata-host-url=[\"']?(https?://[^\"'\s>]+)", re.I)
+
 
 def csp_deployee() -> str:
     m = re.search(r'Content-Security-Policy\s+"(.+?)"',
@@ -56,9 +62,27 @@ def csp_deployee() -> str:
     return m.group(1)
 
 
-def hotes_autorises(csp: str) -> set[str]:
-    """Les origines explicitement listées dans la CSP, s'il y en a."""
-    return set(re.findall(r"https://[a-z0-9.-]+", csp))
+def directives(csp: str) -> dict[str, set[str]]:
+    """La CSP découpée par directive.
+
+    Lire la politique en bloc et y chercher des hôtes au hasard donnerait
+    une réponse fausse dès qu'une directive en porte un : un hôte autorisé
+    pour connect-src rendrait aussi acceptable un script venu de là. Ce
+    sont deux permissions différentes, et les confondre reviendrait à
+    ouvrir script-src par la bande.
+    """
+    table: dict[str, set[str]] = {}
+    for morceau in csp.split(";"):
+        parties = morceau.split()
+        if parties:
+            table[parties[0].lower()] = set(parties[1:])
+    return table
+
+
+def hotes(table: dict[str, set[str]], directive: str) -> set[str]:
+    """Les origines qu'une directive autorise, repli sur default-src."""
+    valeurs = table.get(directive) or table.get("default-src") or set()
+    return {v.rstrip("/") for v in valeurs if v.startswith("http")}
 
 
 def main() -> None:
@@ -67,7 +91,9 @@ def main() -> None:
         sys.exit("check-csp attend script-src 'self' — la CSP a changé, "
                  "ce contrôle doit être relu avant d'être cru.")
 
-    autorises = hotes_autorises(csp)
+    table = directives(csp)
+    autorises = hotes(table, "script-src") | hotes(table, "img-src")
+    balise_ok = hotes(table, "connect-src")
     pages = sorted(RACINE.rglob("*.html"))
     if not pages:
         sys.exit(f"Aucune page sous {RACINE} — le site est-il construit ?")
@@ -88,6 +114,22 @@ def main() -> None:
             if hote not in autorises:
                 fautes.append(f"{rel} : ressource tierce {hote} — refusée "
                               f"par default-src 'self'")
+
+        # La balise de mesure ne part pas d'un attribut src : le navigateur
+        # la poste en fetch(), donc c'est connect-src qui tranche, et son
+        # refus est parfaitement silencieux — la page s'affiche, la mesure
+        # n'existe plus. Rien d'autre ne rattraperait ce désaccord.
+        for destination in BALISE.findall(html):
+            hote = re.match(r"https?://[^/]+", destination).group(0)
+            if hote not in balise_ok:
+                fautes.append(
+                    f"{rel} : la balise de mesure vise {hote}, que "
+                    f"connect-src n'autorise pas. Le navigateur la "
+                    f"refusera sans rien dire. Ajoutez l'hôte à "
+                    f"connect-src dans {HTACCESS}, ou corrigez umamiHost.")
+        if MESURE.search(html) and not BALISE.search(html):
+            fautes.append(f"{rel} : balise de mesure sans data-host-url — "
+                          f"elle serait postée vers ce site même")
 
     for f in sorted(set(fautes)):
         print(f"  {f}", file=sys.stderr)
